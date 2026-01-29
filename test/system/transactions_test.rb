@@ -49,9 +49,9 @@ class TransactionsTest < ApplicationSystemTestCase
 
     within "#transaction-filters-menu" do
       check(@transaction.account.name)
-      click_button "Category"
+      click_button I18n.t("transactions.searches.menu.category_filter")
       check(@transaction.transaction.category.name)
-      click_button "Apply"
+      click_button I18n.t("transactions.searches.menu.apply")
     end
 
     assert_selector "#" + dom_id(@transaction), count: 1
@@ -66,9 +66,9 @@ class TransactionsTest < ApplicationSystemTestCase
     find("#transaction-filters-button").click
 
     within "#transaction-filters-menu" do
-      click_button "Category"
+      click_button I18n.t("transactions.searches.menu.category_filter")
       check("Uncategorized")
-      click_button "Apply"
+      click_button I18n.t("transactions.searches.menu.apply")
     end
 
     assert_selector "#" + dom_id(@uncategorized_transaction), count: 1
@@ -77,9 +77,9 @@ class TransactionsTest < ApplicationSystemTestCase
     find("#transaction-filters-button").click
 
     within "#transaction-filters-menu" do
-      click_button "Category"
+      click_button I18n.t("transactions.searches.menu.category_filter")
       check(@transaction.transaction.category.name)
-      click_button "Apply"
+      click_button I18n.t("transactions.searches.menu.apply")
     end
 
     assert_selector "#" + dom_id(@transaction), count: 1
@@ -94,27 +94,27 @@ class TransactionsTest < ApplicationSystemTestCase
     merchant = @transaction.transaction.merchant
 
     within "#transaction-filters-menu" do
-      click_button "Account"
+      click_button I18n.t("transactions.searches.menu.account_filter")
       check(account.name)
 
-      click_button "Date"
+      click_button I18n.t("transactions.searches.menu.date_filter")
       fill_in "q_start_date", with: 10.days.ago.to_date
       fill_in "q_end_date", with: 1.day.ago.to_date
 
-      click_button "Type"
-      check("Income")
+      click_button I18n.t("transactions.searches.menu.type_filter")
+      check(I18n.t("transactions.searches.filters.badge.income"))
 
-      click_button "Amount"
-      select "Less than"
+      click_button I18n.t("transactions.searches.menu.amount_filter")
+      select I18n.t("transactions.searches.filters.amount_filter.less_than")
       fill_in "q_amount", with: 200
 
-      click_button "Category"
+      click_button I18n.t("transactions.searches.menu.category_filter")
       check(category.name)
 
-      click_button "Merchant"
+      click_button I18n.t("transactions.searches.menu.merchant_filter")
       check(merchant.name)
 
-      click_button "Apply"
+      click_button I18n.t("transactions.searches.menu.apply")
     end
 
     assert_text "No entries found"
@@ -188,8 +188,8 @@ class TransactionsTest < ApplicationSystemTestCase
     transfer_date = Date.current
     visit account_url(investment_account, tab: "activity")
     within "[data-testid='activity-menu']" do
-      click_on "New"
-      click_on "New activity"
+      click_on I18n.t("common.new")
+      click_on I18n.t("transactions.investment.new_activity")
     end
     select "Deposit", from: "Type"
     fill_in "Date", with: transfer_date

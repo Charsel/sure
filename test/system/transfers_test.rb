@@ -11,21 +11,21 @@ class TransfersTest < ApplicationSystemTestCase
     savings_name = accounts(:credit_card).name
     transfer_date = Date.current
 
-    click_on "New transaction"
+    click_on I18n.t("transactions.index.new_transaction")
 
     # Will navigate to different route in same modal
-    click_on "Transfer"
-    assert_text "New transfer"
+    click_on I18n.t("transactions.form.transfer")
+    assert_text I18n.t("transfers.new.title")
 
-    select checking_name, from: "From"
-    select savings_name, from: "To"
+    select checking_name, from: I18n.t("transfers.form.from")
+    select savings_name, from: I18n.t("transfers.form.to")
     fill_in "transfer[amount]", with: 500
-    fill_in "Date", with: transfer_date
+    fill_in I18n.t("transfers.form.date"), with: transfer_date
 
-    click_button "Create transfer"
+    click_button I18n.t("transfers.form.submit")
 
     within "#entry-group-" + transfer_date.to_s do
-      assert_text "Payment to"
+      assert_text I18n.t("transfer.name", to_account: savings_name)
     end
   end
 end

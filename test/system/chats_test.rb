@@ -12,7 +12,7 @@ class ChatsTest < ApplicationSystemTestCase
     visit root_path
 
     within "#chat-container" do
-      assert_selector "h3", text: "Enable AI Chats"
+      assert_selector "h3", text: I18n.t("chats.ai_consent.title")
     end
   end
 
@@ -24,7 +24,7 @@ class ChatsTest < ApplicationSystemTestCase
       visit root_url
 
       within "#chat-container" do
-        assert_selector "h1", text: "Chats"
+        assert_selector "h1", text: I18n.t("chats.index.title")
       end
     end
   end
@@ -64,7 +64,7 @@ class ChatsTest < ApplicationSystemTestCase
 
       find("#chat-nav-back").click
 
-      assert_selector "h1", text: "Chats"
+      assert_selector "h1", text: I18n.t("chats.index.title")
 
       click_on @user.chats.reload.first.title
 
