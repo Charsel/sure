@@ -100,7 +100,7 @@ class AccountsTest < ApplicationSystemTestCase
     def open_new_account_modal
       within "[data-controller='DS--tabs']" do
         click_button "All"
-        click_link "New account"
+        click_link I18n.t("accounts.index.new_account")
       end
     end
 
