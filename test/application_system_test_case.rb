@@ -3,7 +3,6 @@ require "test_helper"
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   setup do
     Capybara.default_max_wait_time = 5
-    I18n.locale = :en
   end
 
   driven_by :selenium, using: ENV["CI"].present? ? :headless_chrome : ENV.fetch("E2E_BROWSER", :chrome).to_sym, screen_size: [ 1400, 1400 ]
@@ -11,7 +10,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   private
 
     def sign_in(user)
-      visit new_session_path(locale: :en)
+      visit new_session_path
       fill_in "email", with: user.email
       fill_in "password", with: user_password_test
       click_button I18n.t("sessions.new.submit")
